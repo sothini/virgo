@@ -21,5 +21,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        User::factory(2)->create();
+
+        $this->call([
+            AssetSeeder::class,
+            OrderSeeder::class
+        ]);
     }
 }
