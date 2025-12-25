@@ -12,12 +12,24 @@ const ProfileComp = defineAsyncComponent(async () => {
   return module.default
 })
 
+const UserOrderComp = defineAsyncComponent(async () => {
+  const module = (await import('../components/UserOrderComp.vue')) as { default: Component }
+  return module.default
+})
+
+const OrderComp = defineAsyncComponent(async () => {
+  const module = (await import('../components/OrderComp.vue')) as { default: Component }
+  return module.default
+})
+
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50">
     <HeaderComp />
     <ProfileComp />
+    <UserOrderComp />
+    <OrderComp />
   </div>
 </template>
 

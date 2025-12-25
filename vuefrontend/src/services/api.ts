@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth'
 import axios, { type AxiosInstance, type AxiosError } from 'axios'
 
 // Base URL for the API
@@ -13,6 +14,26 @@ const apiClient: AxiosInstance = axios.create({
   },
 })
 
+// Request interceptor to handle CSRF token if needed
+apiClient.interceptors.request.use(
+  (config) => {
+    // Sanctum typically uses cookies for CSRF, but if you need to set X-XSRF-TOKEN header
+    // you can get it from cookies here
+    const csrfToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('XSRF-TOKEN='))
+      ?.split('=')[1]
+
+    if (csrfToken) {
+      config.headers['X-XSRF-TOKEN'] = decodeURIComponent(csrfToken)
+    }
+
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
 
 // API service functions
@@ -42,6 +63,18 @@ export const apiService = {
  async profile() {
   await this.getCsrfCookie()
   const response = await apiClient.get('/api/profile')
+  return response.data
+},
+
+async user_orders() {
+  await this.getCsrfCookie()
+  const response = await apiClient.get('/api/user_orders')
+  return response.data
+},
+
+async orders() {
+  await this.getCsrfCookie()
+  const response = await apiClient.get('/api/orders')
   return response.data
 },
 
