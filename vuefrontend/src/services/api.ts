@@ -38,7 +38,12 @@ export const apiService = {
     return response.data
   },
 
-
+ // Fetch authenticated user profile and assets
+ async profile() {
+  await this.getCsrfCookie()
+  const response = await apiClient.get('/api/profile')
+  return response.data
+},
 
 }
 

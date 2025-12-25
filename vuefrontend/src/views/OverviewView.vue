@@ -7,13 +7,17 @@ const HeaderComp = defineAsyncComponent(async () => {
   return module.default
 })
 
+const ProfileComp = defineAsyncComponent(async () => {
+  const module = (await import('../components/ProfileComp.vue')) as { default: Component }
+  return module.default
+})
 
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50">
     <HeaderComp />
-    
+    <ProfileComp />
   </div>
 </template>
 
