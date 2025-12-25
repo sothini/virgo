@@ -14,4 +14,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserController::class, 'getProfile']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/user_orders', [OrderController::class, 'userOrders']);
+    Route::post('/orders', [OrderController::class, 'store']);
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel']);
+    Route::get('/symbols', [OrderController::class, 'getSymbols']);
 });

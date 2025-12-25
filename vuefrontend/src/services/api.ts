@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/stores/auth'
+import type { OrderForm } from '@/stores/order'
 import axios, { type AxiosInstance, type AxiosError } from 'axios'
 
 // Base URL for the API
@@ -75,6 +76,25 @@ async user_orders() {
 async orders() {
   await this.getCsrfCookie()
   const response = await apiClient.get('/api/orders')
+  return response.data
+},
+
+async create_order(payload: OrderForm) {
+  await this.getCsrfCookie()
+  const response = await apiClient.post('/api/orders', payload)
+  return response.data
+},
+
+
+async cancel_order(id: number) {
+  await this.getCsrfCookie()
+  const response = await apiClient.post(`/api/orders/${id}/cancel`)
+  return response.data
+},
+
+async symbols() {
+  await this.getCsrfCookie()
+  const response = await apiClient.get('/api/symbols')
   return response.data
 },
 
